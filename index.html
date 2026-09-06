@@ -1,0 +1,1929 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VAJRA KINETICS // FORGE 01 · Private Strength & Conditioning Sanctum · Bengaluru</title>
+<meta name="description" content="India's premier private athletic performance facility. Heavy calibrated steel, Olympic lifting bays, 30m sprint turf, and surgical biomechanics in Bengaluru.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23090A0C'/><path d='M8 8h16v4H8zm0 12h16v4H8zm6-8h4v8h-4z' fill='%23CCFF00'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Geist+Mono:wght@400;600;700&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  :root {
+    --sc-canvas:     #090A0C;
+    --sc-surface:    #12151B;
+    --sc-surface-raised: #1A1F27;
+    --sc-ink:        #ECEAE4;
+    --sc-ink-soft:   #8A909D;
+    --sc-ink-faint:  #4B5260;
+    --sc-accent:     #CCFF00;
+    --sc-accent-ink: #090A0C;
+    --sc-border:     rgba(236, 234, 228, 0.12);
+    --sc-border-strong: rgba(236, 234, 228, 0.28);
+    --sc-font-display: "Archivo", -apple-system, BlinkMacSystemFont, sans-serif;
+    --sc-font-text:    "Geist", -apple-system, BlinkMacSystemFont, sans-serif;
+    --sc-font-mono:    "Geist Mono", monospace;
+    --sc-measure:      62ch;
+  }
+
+  /* Reset & Baseline */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    background-color: var(--sc-canvas);
+    color: var(--sc-ink);
+    font-family: var(--sc-font-text);
+    margin: 0;
+    padding: 0;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
+  }
+
+  /* Universal Pinning & Stage Enforcement */
+  .sc-stage, [data-sc-stage] {
+    position: sticky !important;
+    top: 0 !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    overflow: hidden !important;
+    z-index: var(--sc-z-stage, 1);
+  }
+  [data-sc-act="pin"], [data-sc-act="pan"], [data-sc-act="scrub"] {
+    position: relative !important;
+    display: block !important;
+  }
+
+  /* Structural Noise & Grain */
+  .sc-grain {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  /* Top Navigation & Status Chrome */
+  .vajra-chrome {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.75rem;
+    background: linear-gradient(180deg, rgba(9, 10, 12, 0.92) 0%, rgba(9, 10, 12, 0.72) 70%, transparent 100%);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--sc-border);
+  }
+  .vajra-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    text-decoration: none;
+    color: var(--sc-ink);
+  }
+  .vajra-symbol {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: var(--sc-accent);
+    color: var(--sc-accent-ink);
+    font-family: var(--sc-font-display);
+    font-weight: 900;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+  .vajra-title {
+    font-family: var(--sc-font-display);
+    font-weight: 900;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .vajra-telemetry-pill {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    font-family: var(--sc-font-mono);
+    font-size: 0.75rem;
+    color: var(--sc-ink-soft);
+    background: rgba(18, 21, 27, 0.8);
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--sc-border);
+  }
+  .vajra-status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--sc-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--sc-accent);
+    margin-right: 0.4rem;
+    animation: pulse 2.4s infinite ease-in-out;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+  .vajra-cta-btn {
+    font-family: var(--sc-font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sc-accent-ink);
+    background-color: var(--sc-accent);
+    padding: 0.55rem 1.15rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+  }
+  .vajra-cta-btn:hover {
+    background-color: #d9ff33;
+    transform: translateY(-1px);
+  }
+  .vajra-cta-btn:focus-visible {
+    outline: 2px solid var(--sc-ink);
+    outline-offset: 3px;
+  }
+
+  /* -------------------------------------------------------------
+     ACT 1: Dimensional Layered Hero
+     Nate's standing hero preference:
+     Layer 1 (Back): hero-bg.webp (concrete monolith)
+     Layer 2 (Atmosphere): chalk particulate canvas
+     Layer 3 (Scrim): Localized lead corner density for pristine text contrast
+     Layer 4 (Type): <h1> VAJRA KINETICS intersecting between planes
+     Layer 5 (Focal Subject): hero-athlete.webp (cutout with alpha)
+     Layer 6 (Foreground): Ground Baseline Gradient
+     ------------------------------------------------------------- */
+  .hero-act {
+    position: relative !important;
+    width: 100%;
+  }
+  .hero-stage {
+    position: sticky !important;
+    top: 0 !important;
+    width: 100%;
+    height: 100vh !important;
+    height: 100svh !important;
+    overflow: hidden !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sc-canvas);
+    z-index: var(--sc-z-stage, 1);
+  }
+  .hero-scroll-cue {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--sc-font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--sc-accent);
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  .scroll-cue-arrow {
+    animation: bounceDown 1.8s infinite ease-in-out;
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+  @keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+  .hero-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .hero-layer--bg {
+    z-index: 1;
+    transform: scale(1.06);
+  }
+  .hero-layer--bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6) contrast(1.22);
+  }
+  .hero-layer--particles {
+    z-index: 2;
+    opacity: 0.75;
+  }
+  .hero-layer--scrim {
+    z-index: 3;
+    background: linear-gradient(90deg, rgba(9, 10, 12, 0.98) 0%, rgba(9, 10, 12, 0.92) 35%, rgba(9, 10, 12, 0.7) 54%, rgba(9, 10, 12, 0.2) 72%, transparent 88%);
+  }
+  .hero-layer--typography {
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 4vw;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    pointer-events: auto;
+  }
+  .hero-layer--athlete {
+    z-index: 5;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 2vw;
+  }
+  .hero-layer--athlete img {
+    max-height: 88vh;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 35px rgba(0,0,0,0.9));
+    transform-origin: bottom center;
+  }
+  .hero-layer--foreground {
+    z-index: 6;
+    background: linear-gradient(180deg, transparent 72%, rgba(9, 10, 12, 0.95) 92%, var(--sc-canvas) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 2.5rem 4vw;
+  }
+  .hero-kicker {
+    font-family: var(--sc-font-mono);
+    font-size: 0.82rem;
+    color: var(--sc-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+  }
+  .hero-kicker::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 2px;
+    background-color: var(--sc-accent);
+  }
+  .hero-title {
+    font-family: var(--sc-font-display);
+    font-size: clamp(2.8rem, 6vw, 5.4rem);
+    font-weight: 900;
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: var(--sc-ink);
+    max-width: 13ch;
+    margin: 0 0 1.25rem 0;
+    text-wrap: balance;
+    text-shadow: 0 4px 16px rgba(0,0,0,0.95);
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    line-height: 1.55;
+    color: var(--sc-ink);
+    max-width: 42ch;
+    margin: 0 0 2rem 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.95);
+  }
+  .hero-stats-strip {
+    display: flex;
+    gap: 2.25rem;
+    font-family: var(--sc-font-mono);
+    border: 1px solid var(--sc-border);
+    background: #0e1117;
+    padding: 1rem 1.75rem;
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .stat-val {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--sc-ink);
+    letter-spacing: -0.02em;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--sc-ink);
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* -------------------------------------------------------------
+     ACT 2: The Iron Doctrine (Pinned Argument with Overlapping Cues)
+     ------------------------------------------------------------- */
+  .doctrine-stage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    max-width: 920px;
+    margin: 0 auto;
+    position: sticky !important;
+    top: 0 !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    overflow: hidden !important;
+  }
+  .doctrine-line {
+    font-family: var(--sc-font-display);
+    font-size: clamp(1.8rem, 4.2vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--sc-ink);
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    text-wrap: balance;
+  }
+  .doctrine-line--accent {
+    color: var(--sc-accent);
+  }
+  .doctrine-watermark {
+    position: absolute;
+    font-family: var(--sc-font-display);
+    font-size: clamp(5rem, 18vw, 16rem);
+    font-weight: 900;
+    color: rgba(236, 234, 228, 0.025);
+    letter-spacing: -0.05em;
+    user-select: none;
+    z-index: -1;
+  }
+
+  /* -------------------------------------------------------------
+     ACT 3: Hardware Inspection Rail (Horizontal Pan)
+     ------------------------------------------------------------- */
+  .rail-stage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100vh !important;
+    height: 100svh !important;
+    position: sticky !important;
+    top: 0 !important;
+    overflow: hidden !important;
+  }
+  .rail-section-header {
+    padding: 0 4vw 2rem 4vw;
+  }
+  .rail-track {
+    display: flex;
+    gap: 2.25rem;
+    padding: 0 4vw 3rem 4vw;
+    will-change: transform;
+    width: max-content;
+  }
+  .rail-card {
+    flex: 0 0 clamp(320px, 34vw, 480px);
+    background: var(--sc-surface);
+    border: 1px solid var(--sc-border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  .rail-card-img-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+  }
+  .rail-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85) contrast(1.15);
+    transition: transform 0.4s ease;
+  }
+  .rail-card:hover .rail-card-img-wrap img {
+    transform: scale(1.03);
+  }
+  .rail-card-body {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+  }
+  .rail-tag {
+    font-family: var(--sc-font-mono);
+    font-size: 0.7rem;
+    color: var(--sc-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .rail-card-title {
+    font-family: var(--sc-font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--sc-ink);
+    margin: 0;
+  }
+  .rail-card-desc {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--sc-ink-soft);
+    margin: 0;
+  }
+  .rail-card-spec {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sc-border);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--sc-font-mono);
+    font-size: 0.75rem;
+    color: var(--sc-ink-soft);
+  }
+
+  /* -------------------------------------------------------------
+     ACT 4: THE PEAK · The Barbell Deflection & Biomechanical Strain Scrubber
+     ------------------------------------------------------------- */
+  .strain-peak-stage {
+    width: 100%;
+    height: 100vh !important;
+    height: 100svh !important;
+    position: sticky !important;
+    top: 0 !important;
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 4vw;
+    background: radial-gradient(circle at center, rgba(204, 255, 0, 0.04) 0%, transparent 65%), var(--sc-canvas);
+  }
+
+  /* Live Stage Telemetry Pill (HUD) */
+  .scroll-stage-hud {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.5rem;
+    z-index: 1000;
+    background: rgba(18, 21, 27, 0.92);
+    border: 1px solid var(--sc-border-strong);
+    padding: 0.45rem 0.95rem;
+    font-family: var(--sc-font-mono);
+    font-size: 0.72rem;
+    color: var(--sc-accent);
+    letter-spacing: 0.12em;
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  }
+  .strain-hud-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .strain-hud-title {
+    font-family: var(--sc-font-display);
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.5rem 0;
+    color: var(--sc-ink);
+  }
+  .strain-hud-sub {
+    font-family: var(--sc-font-mono);
+    font-size: 0.85rem;
+    color: var(--sc-accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* The Barbell Canvas & Simulator */
+  .barbell-rig-container {
+    width: 100%;
+    max-width: 980px;
+    background: var(--sc-surface);
+    border: 1px solid var(--sc-border-strong);
+    padding: 2rem 2.5rem;
+    position: relative;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+  }
+  .barbell-canvas-wrap {
+    width: 100%;
+    height: 180px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+  }
+  #barbellCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Telemetry Gauges Grid */
+  .telemetry-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--sc-border);
+  }
+  .telemetry-metric {
+    background: rgba(9, 10, 12, 0.6);
+    border: 1px solid var(--sc-border);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .metric-label {
+    font-family: var(--sc-font-mono);
+    font-size: 0.7rem;
+    color: var(--sc-ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .metric-value {
+    font-family: var(--sc-font-mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--sc-accent);
+    letter-spacing: -0.02em;
+  }
+  .metric-desc {
+    font-size: 0.75rem;
+    color: var(--sc-ink-soft);
+  }
+
+  /* Plate Selector Buttons */
+  .plate-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .plate-buttons {
+    display: flex;
+    gap: 0.65rem;
+  }
+  .plate-btn {
+    font-family: var(--sc-font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--sc-border);
+    background: var(--sc-surface-raised);
+    color: var(--sc-ink);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .plate-btn:hover {
+    border-color: var(--sc-accent);
+    color: var(--sc-accent);
+  }
+  .plate-btn--red { border-left: 3px solid #ff3344; }
+  .plate-btn--blue { border-left: 3px solid #0066ff; }
+  .plate-btn--green { border-left: 3px solid #00cc66; }
+  .plate-btn--white { border-left: 3px solid #ffffff; }
+
+  .plate-reset-btn {
+    font-family: var(--sc-font-mono);
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px dashed var(--sc-border);
+    color: var(--sc-ink-soft);
+    cursor: pointer;
+  }
+  .plate-reset-btn:hover {
+    color: var(--sc-ink);
+    border-color: var(--sc-ink);
+  }
+
+  /* -------------------------------------------------------------
+     ACT 5: Training Protocols (Split Flow Technical Inspection)
+     ------------------------------------------------------------- */
+  .protocols-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 3rem 4vw 6rem 4vw;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .protocol-block {
+    background: var(--sc-surface);
+    border: 1px solid var(--sc-border);
+    padding: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .protocol-num {
+    font-family: var(--sc-font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--sc-accent);
+  }
+  .protocol-title {
+    font-family: var(--sc-font-display);
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--sc-ink);
+    margin: 0;
+  }
+  .protocol-text {
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--sc-ink-soft);
+    margin: 0;
+  }
+  .protocol-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-family: var(--sc-font-mono);
+    font-size: 0.8rem;
+    color: var(--sc-ink);
+    border-top: 1px solid var(--sc-border);
+    padding-top: 1rem;
+  }
+  .protocol-list li::before {
+    content: "■ ";
+    color: var(--sc-accent);
+    font-size: 0.65rem;
+    margin-right: 0.4rem;
+  }
+
+  /* -------------------------------------------------------------
+     ACT 6: Induction Plate & Membership Commitment
+     ------------------------------------------------------------- */
+  .induction-stage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 4vw;
+  }
+  .induction-panel {
+    width: 100%;
+    max-width: 1100px;
+    background: var(--sc-surface);
+    border: 1px solid var(--sc-border-strong);
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    box-shadow: 0 32px 64px rgba(0,0,0,0.8);
+  }
+  .induction-info {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--sc-border);
+  }
+  .induction-headline {
+    font-family: var(--sc-font-display);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--sc-ink);
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+  }
+  .induction-lead {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--sc-ink-soft);
+    margin-bottom: 2rem;
+  }
+  .tier-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .tier-card {
+    background: rgba(9, 10, 12, 0.6);
+    border: 1px solid var(--sc-border);
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+  }
+  .tier-card:hover, .tier-card.selected {
+    border-color: var(--sc-accent);
+  }
+  .tier-name {
+    font-family: var(--sc-font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--sc-ink);
+  }
+  .tier-desc {
+    font-size: 0.75rem;
+    color: var(--sc-ink-soft);
+  }
+  .tier-price {
+    font-family: var(--sc-font-mono);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--sc-accent);
+    text-align: right;
+  }
+  .tier-period {
+    font-size: 0.65rem;
+    color: var(--sc-ink-soft);
+    display: block;
+  }
+
+  /* The Requisition Form */
+  .induction-form-wrap {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #0d1015;
+  }
+  .form-title {
+    font-family: var(--sc-font-mono);
+    font-size: 0.8rem;
+    color: var(--sc-accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .vajra-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .form-label {
+    font-family: var(--sc-font-mono);
+    font-size: 0.72rem;
+    color: var(--sc-ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .form-input, .form-select {
+    font-family: var(--sc-font-text);
+    font-size: 0.95rem;
+    color: var(--sc-ink);
+    background: var(--sc-surface);
+    border: 1px solid var(--sc-border);
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  .form-input:focus, .form-select:focus {
+    border-color: var(--sc-accent);
+  }
+  .form-submit-btn {
+    font-family: var(--sc-font-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sc-accent-ink);
+    background: var(--sc-accent);
+    border: none;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .form-submit-btn:hover {
+    background-color: #d9ff33;
+  }
+  .form-note {
+    font-family: var(--sc-font-mono);
+    font-size: 0.68rem;
+    color: var(--sc-ink-soft);
+    text-align: center;
+    margin-top: 0.75rem;
+  }
+  .confirmation-alert {
+    display: none;
+    background: rgba(204, 255, 0, 0.1);
+    border: 1px solid var(--sc-accent);
+    padding: 1.25rem;
+    color: var(--sc-ink);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  /* Colophon & Footer */
+  .vajra-colophon {
+    padding: 3rem 4vw;
+    border-top: 1px solid var(--sc-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--sc-font-mono);
+    font-size: 0.72rem;
+    color: var(--sc-ink-soft);
+    background-color: #060708;
+  }
+
+  /* -------------------------------------------------------------
+     Mobile Responsive & Adaptive Mode Art Direction
+     Supports both @media queries and body.sc-mode-mobile
+     ------------------------------------------------------------- */
+  @media (max-width: 860px), (pointer: coarse) and (max-width: 1024px) {
+    /* Safe Area & Universal Stage Heights for Mobile Viewports */
+    html {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: clip !important;
+      overflow-y: visible !important;
+    }
+    body {
+      width: 100% !important;
+      max-width: 100vw !important;
+      overflow-x: clip !important;
+      overflow-y: visible !important;
+    }
+
+    .sc-stage, [data-sc-stage] {
+      position: sticky !important;
+      top: 0 !important;
+      height: 100vh !important;
+      height: 100svh !important;
+      max-height: 100vh !important;
+      max-height: 100svh !important;
+      overflow: hidden !important;
+    }
+
+    /* Top Chrome Navigation */
+    .vajra-chrome {
+      padding: 0.65rem 1rem !important;
+      gap: 0.5rem !important;
+    }
+    .vajra-brand {
+      gap: 0.5rem !important;
+    }
+    .vajra-title {
+      font-size: 0.85rem !important;
+      letter-spacing: 0.04em !important;
+    }
+    .vajra-symbol {
+      width: 24px !important;
+      height: 24px !important;
+      font-size: 0.75rem !important;
+    }
+    .vajra-telemetry-pill {
+      display: none !important; /* Hide to ensure top navbar never wraps or overflows */
+    }
+    .vajra-cta-btn {
+      padding: 0.45rem 0.85rem !important;
+      font-size: 0.68rem !important;
+      letter-spacing: 0.06em !important;
+    }
+
+    /* Act 1: Hero Dimensional Mobile Composition */
+    .hero-layer--scrim {
+      background: linear-gradient(180deg, rgba(9, 10, 12, 0.94) 0%, rgba(9, 10, 12, 0.72) 42%, rgba(9, 10, 12, 0.45) 70%, rgba(9, 10, 12, 0.98) 100%) !important;
+    }
+    .hero-layer--typography {
+      padding: 4.5rem 1.25rem 1.25rem 1.25rem !important;
+      justify-content: flex-start !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      z-index: 6 !important;
+    }
+    .hero-title {
+      font-size: clamp(2.2rem, 9.5vw, 3.2rem) !important;
+      line-height: 0.98 !important;
+      margin: 0.25rem 0 0.75rem 0 !important;
+      max-width: 12ch !important;
+    }
+    .hero-sub {
+      font-size: 0.88rem !important;
+      line-height: 1.5 !important;
+      max-width: 32ch !important;
+      margin: 0 0 1rem 0 !important;
+    }
+    .hero-stats-strip {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 0.5rem !important;
+      padding: 0.6rem 0.75rem !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    .stat-val {
+      font-size: 1.15rem !important;
+    }
+    .stat-label {
+      font-size: 0.62rem !important;
+      letter-spacing: 0.04em !important;
+      line-height: 1.25 !important;
+    }
+    .hero-layer--athlete {
+      justify-content: center !important;
+      align-items: flex-end !important;
+      padding-right: 0 !important;
+      width: 100% !important;
+      overflow: hidden !important;
+      z-index: 4 !important;
+      opacity: 0.55 !important;
+    }
+    .hero-layer--athlete img {
+      max-height: 48svh !important;
+      max-width: 78vw !important;
+      width: auto !important;
+      height: auto !important;
+      object-fit: contain !important;
+    }
+    .hero-scroll-cue {
+      bottom: 1rem !important;
+      font-size: 0.62rem !important;
+    }
+
+    /* Act 2: Doctrine */
+    .doctrine-stage {
+      padding: 2rem 1rem !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    .doctrine-line {
+      position: absolute !important;
+      left: 1rem !important;
+      right: 1rem !important;
+      width: calc(100% - 2rem) !important;
+      font-size: clamp(1.35rem, 5.8vw, 2rem) !important;
+      line-height: 1.25 !important;
+      text-align: center !important;
+    }
+    .doctrine-watermark {
+      font-size: clamp(4.5rem, 19vw, 7rem) !important;
+    }
+
+    /* Act 3: Hardware Rail */
+    .rail-section-header {
+      padding: 0 1.25rem 0.75rem 1.25rem !important;
+    }
+    .rail-section-header h2 {
+      font-size: 1.65rem !important;
+    }
+    .rail-track {
+      gap: 1rem !important;
+      padding: 0 1.25rem 1.5rem 1.25rem !important;
+    }
+    .rail-card {
+      flex: 0 0 min(82vw, 295px) !important;
+    }
+    .rail-card-img-wrap {
+      aspect-ratio: 16 / 9 !important;
+    }
+    .rail-card-body {
+      padding: 1rem !important;
+      gap: 0.4rem !important;
+    }
+    .rail-card-title {
+      font-size: 1.15rem !important;
+    }
+    .rail-card-desc {
+      font-size: 0.82rem !important;
+      line-height: 1.45 !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 3 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+    }
+    .rail-card-spec {
+      font-size: 0.65rem !important;
+      padding-top: 0.5rem !important;
+    }
+
+    /* Act 4: Barbell Peak (Touch-Optimized Controls & Compact Height) */
+    .strain-peak-stage {
+      padding: 1rem 0.75rem !important;
+      justify-content: center !important;
+    }
+    .strain-hud-header {
+      margin-bottom: 0.5rem !important;
+    }
+    .strain-hud-title {
+      font-size: 1.35rem !important;
+      margin-bottom: 0.15rem !important;
+    }
+    .strain-hud-sub {
+      font-size: 0.72rem !important;
+    }
+    .strain-hud-header p {
+      display: none !important; /* Hide verbose paragraph on mobile */
+    }
+    .barbell-rig-container {
+      padding: 0.75rem 0.65rem !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    .barbell-canvas-wrap {
+      height: 110px !important;
+      margin: 0.25rem 0 !important;
+    }
+    .plate-controls {
+      margin-top: 0.5rem !important;
+      flex-direction: column !important;
+      gap: 0.45rem !important;
+      width: 100% !important;
+    }
+    .plate-controls > div {
+      width: 100% !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 0.35rem !important;
+    }
+    .plate-buttons {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 0.4rem !important;
+      width: 100% !important;
+    }
+    .plate-btn {
+      min-height: 42px !important; /* Finger-friendly touch target */
+      padding: 0.45rem 0.35rem !important;
+      font-size: 0.72rem !important;
+    }
+    .plate-reset-btn {
+      width: 100% !important;
+      min-height: 36px !important;
+      text-align: center !important;
+      padding: 0.4rem !important;
+      font-size: 0.7rem !important;
+    }
+    .telemetry-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 0.45rem !important;
+      margin-top: 0.5rem !important;
+      padding-top: 0.5rem !important;
+    }
+    .telemetry-metric {
+      padding: 0.5rem !important;
+      gap: 0.2rem !important;
+    }
+    .metric-value {
+      font-size: 1.15rem !important;
+    }
+    .metric-label {
+      font-size: 0.6rem !important;
+    }
+    .metric-desc {
+      display: none !important;
+    }
+
+    /* Act 5: Protocols Grid */
+    .protocols-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.25rem !important;
+      padding: 2rem 1.25rem 4rem 1.25rem !important;
+    }
+    .protocol-block {
+      padding: 1.35rem !important;
+    }
+    .protocol-title {
+      font-size: 1.3rem !important;
+    }
+
+    /* Act 6: Induction Form & Tiers */
+    .induction-panel {
+      grid-template-columns: 1fr !important;
+      box-shadow: none !important;
+    }
+    .induction-info {
+      border-right: none !important;
+      border-bottom: 1px solid var(--sc-border) !important;
+      padding: 1.5rem 1.25rem !important;
+    }
+    .induction-headline {
+      font-size: 1.6rem !important;
+    }
+    .tier-card {
+      padding: 0.85rem 1rem !important;
+    }
+    .tier-price {
+      font-size: 1.25rem !important;
+    }
+    .induction-form-wrap {
+      padding: 1.5rem 1.25rem !important;
+    }
+    .form-group input, .form-group select {
+      font-size: 16px !important; /* Prevents unwanted iOS Safari viewport zooming */
+      padding: 0.85rem !important;
+    }
+    .btn-requisition {
+      font-size: 0.82rem !important;
+      padding: 0.95rem !important;
+    }
+    .vajra-colophon {
+      flex-direction: column !important;
+      gap: 1rem !important;
+      text-align: center !important;
+    }
+
+    /* Floating Telemetry HUD */
+    .scroll-stage-hud {
+      bottom: 0.65rem !important;
+      right: 0.65rem !important;
+      padding: 0.35rem 0.65rem !important;
+      font-size: 0.65rem !important;
+      max-width: calc(100vw - 1.3rem) !important;
+    }
+  }
+
+  /* Reduced Motion Safe Defaults */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-layer, .rail-track {
+      transform: none !important;
+    }
+    .hero-layer--athlete img {
+      max-height: 65vh;
+    }
+    .doctrine-line {
+      position: static;
+      margin-bottom: 2rem;
+      opacity: 1 !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<!-- Top Fixed Industrial Telemetry Header -->
+<header class="vajra-chrome">
+  <a href="#top" class="vajra-brand">
+    <span class="vajra-symbol">V</span>
+    <span class="vajra-title">VAJRA // FORGE 01</span>
+  </a>
+  <div class="vajra-telemetry-pill" aria-label="Facility status readout">
+    <span><span class="vajra-status-dot"></span>FACILITY ACTIVE</span>
+    <span>BLR · IND · 12.9716° N, 77.5946° E</span>
+    <span>CAPACITY: 42/60 SLOTS</span>
+    <span id="navModePill" style="color: var(--sc-accent); font-weight: 700;">MODE: FULL [1440PX]</span>
+  </div>
+  <a href="#induction" class="vajra-cta-btn">REQUISITION PASS</a>
+</header>
+
+<!-- Floating Live Stage Telemetry Pill -->
+<div class="scroll-stage-hud" id="stageHud" aria-live="polite">
+  <span class="vajra-status-dot"></span>
+  <span id="hudText">ACT 01 // THRESHOLD · 0%</span>
+</div>
+
+<main id="top">
+
+  <!-- =============================================================
+       ACT 1: THRESHOLD · Dimensional Layered Hero
+       Device: pin + multi-plane parallax (Locked Dimensional Hero)
+       Span: 2.8, Drift: #090A0C
+       ============================================================= -->
+  <section class="hero-act" data-sc-act="pin" data-sc-span="3.6" data-sc-drift="#090A0C" id="hero-act">
+    <div class="sc-stage hero-stage" data-sc-stage>
+      <!-- Plane 1: Architectural Concrete Background -->
+      <div class="hero-layer hero-layer--bg" data-sc-parallax="-0.45">
+        <img src="assets/hero-bg.webp" width="1376" height="768" alt="Monolithic concrete gym hall with industrial steel beams and directional lighting">
+      </div>
+
+      <!-- Plane 2: Chalk Particulate Atmosphere -->
+      <canvas id="chalkCanvas" class="hero-layer hero-layer--particles" data-sc-parallax="-0.2"></canvas>
+
+      <!-- Plane 3: Localized Scrim for Contrast -->
+      <div class="hero-layer hero-layer--scrim"></div>
+
+      <!-- Plane 4: Typography Between Planes -->
+      <div class="hero-layer hero-layer--typography" data-sc-parallax="0.05">
+        <div class="hero-kicker">SANCTUARY FOR RAW HUMAN FORCE</div>
+        <h1 class="hero-title">UNCOMPROMISING STRENGTH.</h1>
+        <p class="hero-sub">
+          India's private athletic forge. Competition-calibrated iron, Olympic lifting platforms, and surgical biomechanics in Bengaluru.
+        </p>
+        <div class="hero-stats-strip">
+          <div class="stat-item">
+            <span class="stat-val">100%</span>
+            <span class="stat-label">Eleiko Calibrated Steel</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">30M</span>
+            <span class="stat-label">Olympic Sprint Turf</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">60</span>
+            <span class="stat-label">Maximum Resident Athlete Cap</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plane 5: Focal Subject (Athlete in Chalk Cloud) -->
+      <div class="hero-layer hero-layer--athlete" data-sc-parallax="0.4">
+        <img src="assets/hero-athlete.webp" width="1376" height="768" alt="Athlete clapping magnesium chalk before heavy lift">
+      </div>
+
+      <!-- Plane 6: Ground Baseline Gradient -->
+      <div class="hero-layer hero-layer--foreground"></div>
+
+      <!-- Hero Scroll Cue Indicator -->
+      <div class="hero-scroll-cue" data-sc-cue="0 0.45 0">
+        <span class="scroll-cue-txt">SCROLL TO COMMENCE REQUISITION</span>
+        <span class="scroll-cue-arrow">↓</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       ACT 2: THE IRON DOCTRINE
+       Device: pin + kinetic type assembly
+       Span: 3.0, Drift: #0F1217
+       ============================================================= -->
+  <section data-sc-act="pin" data-sc-span="3.9" data-sc-drift="#0F1217" id="doctrine-act">
+    <div data-sc-stage class="sc-stage doctrine-stage">
+      <div class="doctrine-watermark" aria-hidden="true">VAJRA</div>
+      <h2 class="doctrine-line" data-sc-cue="0 0.35 0" data-sc-kinetic="lines">
+        COMMERCIAL GYMS SELL COMFORT TO PEOPLE WHO NEVER PLAN TO CHANGE.
+      </h2>
+      <h2 class="doctrine-line" data-sc-cue="0.32 0.68" data-sc-kinetic="lines">
+        WE BUILT AN INDUSTRIAL SANCTUARY FOR THOSE WHO RESPECT THE WEIGHT.
+      </h2>
+      <h2 class="doctrine-line doctrine-line--accent" data-sc-cue="0.65 0.98" data-sc-kinetic="lines">
+        NO MIRROR THEATRICS. NO DISTRACTION. PURE PROGRESSIVE OVERLOAD.
+      </h2>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       ACT 3: THE HARDWARE INSPECTION RAIL
+       Device: pan (horizontal travel)
+       Span: 3.8, Pan: 0.25
+       ============================================================= -->
+  <section data-sc-act="pan" data-sc-span="4.9" data-sc-drift="#11141A" id="hardware-act">
+    <div data-sc-stage class="sc-stage rail-stage">
+      <div class="rail-section-header">
+        <span class="hero-kicker">PHYSICAL INFRASTRUCTURE // SECTORS 01–04</span>
+        <h2 style="font-family: var(--sc-font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin: 0; color: var(--sc-ink); letter-spacing: -0.03em;">
+          CHAMPIONSHIP SPECIFICATION.
+        </h2>
+      </div>
+
+      <div class="rail-track" data-sc-pan="0.25">
+        <!-- Card 1 -->
+        <article class="rail-card">
+          <div class="rail-card-img-wrap">
+            <img src="assets/platform-eleiko.webp" width="1376" height="768" alt="Eleiko calibrated cast iron plates on Olympic bar">
+          </div>
+          <div class="rail-card-body">
+            <span class="rail-tag">SECTOR 01 // FREE WEIGHT BAY</span>
+            <h3 class="rail-card-title">Eleiko Calibrated Steel</h3>
+            <p class="rail-card-desc">
+              Every plate is calibrated to within 10 grams of certified competition tolerance. Zero bounce, maximum bar sleeve friction, and Swedish steel bars.
+            </p>
+            <div class="rail-card-spec">
+              <span>ACCURACY: ±0.05%</span>
+              <span>12 PLATFORMS</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="rail-card">
+          <div class="rail-card-img-wrap">
+            <img src="assets/platform-turf.webp" width="1376" height="768" alt="Push sled on 30m sprint turf track">
+          </div>
+          <div class="rail-card-body">
+            <span class="rail-tag">SECTOR 02 // METABOLIC LANE</span>
+            <h3 class="rail-card-title">30M High-Traction Sprint Turf</h3>
+            <p class="rail-card-desc">
+              High-density shock-absorbing synthetic turf with laser-measured 1-meter tick marks for heavy sled pulls, loaded carries, and explosive sprinting.
+            </p>
+            <div class="rail-card-spec">
+              <span>GRADE: INDOOR PRO</span>
+              <span>300KG SLEDS</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="rail-card">
+          <div class="rail-card-img-wrap">
+            <img src="assets/platform-recovery.webp" width="1376" height="768" alt="Cold plunge concrete bath in recovery suite">
+          </div>
+          <div class="rail-card-body">
+            <span class="rail-tag">SECTOR 03 // CELLULAR RECOVERY</span>
+            <h3 class="rail-card-title">Sub-Zero Contrast Plunge</h3>
+            <p class="rail-card-desc">
+              Continuous 4°C chilled immersion bath beside high-temperature Finnish cedar sauna. Rapid autonomic nervous system reset following maximal effort.
+            </p>
+            <div class="rail-card-spec">
+              <span>TEMPERATURE: 4°C</span>
+              <span>OZONE FILTERED</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="rail-card">
+          <div class="rail-card-img-wrap" style="background: #080a0d; display: flex; align-items: center; justify-content: center;">
+            <svg width="100%" height="100%" viewBox="0 0 320 200" style="padding: 1rem;">
+              <line x1="20" y1="100" x2="300" y2="100" stroke="rgba(236,234,228,0.15)" stroke-dasharray="4"/>
+              <line x1="20" y1="50" x2="300" y2="50" stroke="rgba(236,234,228,0.08)"/>
+              <line x1="20" y1="150" x2="300" y2="150" stroke="rgba(236,234,228,0.08)"/>
+              <path d="M 30 150 C 70 140, 110 30, 160 50 S 240 130, 290 40" fill="none" stroke="#CCFF00" stroke-width="3"/>
+              <circle cx="160" cy="50" r="5" fill="#CCFF00"/>
+              <text x="175" y="48" fill="#CCFF00" font-family="monospace" font-size="11" font-weight="bold">3,420 N PEAK FORCE</text>
+              <text x="30" y="180" fill="#8A909D" font-family="monospace" font-size="10">1000HZ DUAL FORCE PLATES</text>
+            </svg>
+          </div>
+          <div class="rail-card-body">
+            <span class="rail-tag">SECTOR 04 // BIOMECHANICS LAB</span>
+            <h3 class="rail-card-title">Dual Force Decks & DEXA</h3>
+            <p class="rail-card-desc">
+              1,000Hz dual force plate telemetry arrays measuring eccentric rate of force development, bilateral asymmetry, and mechanical impulse.
+            </p>
+            <div class="rail-card-spec">
+              <span>FREQUENCY: 1000 HZ</span>
+              <span>VALD FORCE DECKS</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       ACT 4: THE PEAK · BARBELL DEFLECTION & MECHANICAL STRAIN SCRUBBER
+       Device: pin + bespoke signature move
+       Span: 3.8, Dwell: 0.25, Drift: #0A0C10
+       ============================================================= -->
+  <section data-sc-act="pin" data-sc-span="4.9" data-sc-dwell="0.22" data-sc-drift="#0A0C10" id="strain-bay">
+    <div data-sc-stage class="sc-stage strain-peak-stage">
+      <div class="strain-hud-header">
+        <span class="strain-hud-sub">ACT 04 // THE MECHANICAL PEAK</span>
+        <h2 class="strain-hud-title">BIOMECHANICAL STRAIN TELEMETRY</h2>
+        <p style="font-size: 0.95rem; color: var(--sc-ink-soft); max-width: 58ch; margin: 0 auto;">
+          Scroll to simulate mechanical load progression, or tap calibrated competition plates to inspect real-time bar deflection and nervous system strain.
+        </p>
+      </div>
+
+      <div class="barbell-rig-container">
+        <!-- Interactive Canvas for Barbell Bend & Plates -->
+        <div class="barbell-canvas-wrap">
+          <canvas id="barbellCanvas"></canvas>
+        </div>
+
+        <!-- Plate Loaders & Interactive Controls -->
+        <div class="plate-controls">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-family: var(--sc-font-mono); font-size: 0.75rem; color: var(--sc-ink-soft);">LOAD PLATES:</span>
+            <div class="plate-buttons">
+              <button class="plate-btn plate-btn--red" onclick="addPlate(25)">+25 KG (RED)</button>
+              <button class="plate-btn plate-btn--blue" onclick="addPlate(20)">+20 KG (BLUE)</button>
+              <button class="plate-btn plate-btn--green" onclick="addPlate(10)">+10 KG (GREEN)</button>
+              <button class="plate-btn plate-btn--white" onclick="addPlate(5)">+5 KG (WHITE)</button>
+            </div>
+          </div>
+          <button class="plate-reset-btn" onclick="resetBarbell()">RESET TO 20KG BAR</button>
+        </div>
+
+        <!-- Real-time Telemetry Readout Grid -->
+        <div class="telemetry-grid">
+          <div class="telemetry-metric">
+            <span class="metric-label">TOTAL BARBELL MASS</span>
+            <span class="metric-value" id="dispMass">140 KG</span>
+            <span class="metric-desc">Bar + Calibrated Collar Stack</span>
+          </div>
+          <div class="telemetry-metric">
+            <span class="metric-label">ELASTIC DEFLECTION</span>
+            <span class="metric-value" id="dispDeflection">14.8 MM</span>
+            <span class="metric-desc">Swedish Spring Steel Bend</span>
+          </div>
+          <div class="telemetry-metric">
+            <span class="metric-label">MEAN PROPULSIVE VELOCITY</span>
+            <span class="metric-value" id="dispVelocity">0.58 M/S</span>
+            <span class="metric-desc">Accelerative Power Profile</span>
+          </div>
+          <div class="telemetry-metric">
+            <span class="metric-label">NEUROMUSCULAR STRAIN</span>
+            <span class="metric-value" id="dispStrain">78% CNS</span>
+            <span class="metric-desc">Motor Unit Recruitment Bracket</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       ACT 5: TRAINING PROTOCOLS
+       Device: flow + reveal
+       Drift: #11141A
+       ============================================================= -->
+  <section class="sc-section" data-sc-act="flow" data-sc-drift="#11141A" id="protocols">
+    <div style="padding: 2rem 4vw 0 4vw; max-width: 1440px; margin: 0 auto;">
+      <span class="hero-kicker">METHODOLOGY</span>
+      <h2 style="font-family: var(--sc-font-display); font-size: clamp(2rem, 3.8vw, 3.2rem); font-weight: 900; margin: 0; color: var(--sc-ink); letter-spacing: -0.03em;">
+        SURGICAL PROGRAMMING.
+      </h2>
+    </div>
+
+    <div class="protocols-grid">
+      <!-- Protocol 1 -->
+      <div class="protocol-block" data-sc-reveal="up" data-sc-reveal-at="0.1 0.45">
+        <span class="protocol-num">01 // HYPERTROPHY & DENSITY</span>
+        <h3 class="protocol-title">Mechanical Tension</h3>
+        <p class="protocol-text">
+          High-threshold motor unit recruitment achieved through standardized eccentric control, full joint mobility, and recorded mechanical volume.
+        </p>
+        <ul class="protocol-list">
+          <li>Standardized Range of Motion</li>
+          <li>RPE / Velocity-Based Autoregulation</li>
+          <li>Intramuscular Fiber Density Tracking</li>
+        </ul>
+      </div>
+
+      <!-- Protocol 2 -->
+      <div class="protocol-block" data-sc-reveal="up" data-sc-reveal-at="0.25 0.6">
+        <span class="protocol-num">02 // MAXIMUM FORCE OUTPUT</span>
+        <h3 class="protocol-title">Rate of Force Development</h3>
+        <p class="protocol-text">
+          Training the central nervous system to fire motor units with instant acceleration. Olympic variations, contrast deadlifts, and accommodates resistance.
+        </p>
+        <ul class="protocol-list">
+          <li>Accelerative Barbell Trajectories</li>
+          <li>Band & Chain Dynamic Resistance</li>
+          <li>Ground Reaction Force Calibration</li>
+        </ul>
+      </div>
+
+      <!-- Protocol 3 -->
+      <div class="protocol-block" data-sc-reveal="up" data-sc-reveal-at="0.4 0.75">
+        <span class="protocol-num">03 // AUTONOMIC RECOVERY</span>
+        <h3 class="protocol-title">Structural Longevity</h3>
+        <p class="protocol-text">
+          Tissue remodeling and autonomic stabilization via contrast cryotherapy, infrared tissue regeneration, and joint decompression routines.
+        </p>
+        <ul class="protocol-list">
+          <li>4°C Cold Immersion Protocols</li>
+          <li>Passive Spinal Decompression</li>
+          <li>Heart Rate Variability (HRV) Modulation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       ACT 6: INDUCTION PLATE & COMMITMENT
+       Device: flow (Resolves and holds firmly, never trailing off!)
+       Drift: #090A0C
+       ============================================================= -->
+  <section class="sc-section" data-sc-act="flow" data-sc-drift="#090A0C" id="induction" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 4rem 0;">
+    <div class="induction-stage" style="height: auto; width: 100%;">
+      <div class="induction-panel">
+        <!-- Left: Tier Ledger -->
+        <div class="induction-info">
+          <div>
+            <span class="hero-kicker">ATHLETE INDUCTION</span>
+            <h2 class="induction-headline">SECURE YOUR PLATFORM.</h2>
+            <p class="induction-lead">
+              Strictly limited to 60 resident athlete slots to maintain zero platform queueing and pristine focus.
+            </p>
+          </div>
+
+          <div class="tier-cards">
+            <div class="tier-card selected" onclick="selectTier('Founding Resident', '₹8,500')">
+              <div>
+                <span class="tier-name">FOUNDING RESIDENT</span>
+                <span class="tier-desc">24/7 Keycard · Full Iron & Recovery Access</span>
+              </div>
+              <div>
+                <span class="tier-price">₹8,500</span>
+                <span class="tier-period">PER MONTH</span>
+              </div>
+            </div>
+
+            <div class="tier-card" onclick="selectTier('Performance Elite', '₹14,000')">
+              <div>
+                <span class="tier-name">PERFORMANCE ELITE</span>
+                <span class="tier-desc">Biometric Telemetry · 1-on-1 Coaching Deck</span>
+              </div>
+              <div>
+                <span class="tier-price">₹14,000</span>
+                <span class="tier-period">PER MONTH</span>
+              </div>
+            </div>
+
+            <div class="tier-card" onclick="selectTier('Single Day Pass', '₹1,800')">
+              <div>
+                <span class="tier-name">SINGLE SESSION PASS</span>
+                <span class="tier-desc">Full Facility Single-Day Platform Access</span>
+              </div>
+              <div>
+                <span class="tier-price">₹1,800</span>
+                <span class="tier-period">PER DAY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Direct Requisition Form -->
+        <div class="induction-form-wrap">
+          <span class="form-title">// ATHLETE REQUISITION DOSSIER</span>
+          <form class="vajra-form" id="requisitionForm" onsubmit="handlePassSubmit(event)">
+            <div class="form-group">
+              <label class="form-label" for="fullName">Athlete Full Name</label>
+              <input type="text" id="fullName" class="form-input" placeholder="e.g. Aryan Sharma" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phoneNum">Phone (+91 India)</label>
+              <input type="tel" id="phoneNum" class="form-input" placeholder="+91 98765 43210" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="emailAddr">Email Address</label>
+              <input type="email" id="emailAddr" class="form-input" placeholder="athlete@domain.in" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="selectedTierInput">Target Enrollment Tier</label>
+              <input type="text" id="selectedTierInput" class="form-input" value="Founding Resident — ₹8,500/mo" readonly>
+            </div>
+            <button type="submit" class="form-submit-btn">DISPATCH INDUCTION PASS</button>
+            <span class="form-note">Pass authorization issued via SMS & WhatsApp within 30 minutes.</span>
+          </form>
+
+          <div id="confirmationAlert" class="confirmation-alert">
+            <strong style="color: var(--sc-accent);">INDUCTION DISPATCHED.</strong><br>
+            Your access keycode and platform induction slot have been reserved.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Colophon / Masthead Footer -->
+<footer class="vajra-colophon">
+  <div>
+    <strong>VAJRA KINETICS // FORGE 01</strong> · BENGALURU, KARNATAKA, INDIA
+  </div>
+  <div>
+    LAT: 12.9716° N · LON: 77.5946° E · ELEIKO CERTIFIED FACILITY
+  </div>
+  <div>
+    © 2026 VAJRA KINETICS. ALL RIGHTS RESERVED.
+  </div>
+</footer>
+
+<!-- Load Core ScrollCraft Engine -->
+<script src="scrollcraft.js"></script>
+
+<!-- Bespoke Signature Move & Page Choreography -->
+<script>
+  // Mount ScrollCraft runtime with touch-responsive lerp
+  const isTouchDevice = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || window.innerWidth <= 860;
+  ScrollCraft.mount(document, { lerp: isTouchDevice ? 0.22 : 0.09 });
+
+  // -------------------------------------------------------------
+  // 1. Particle Chalk Atmosphere in Hero
+  // -------------------------------------------------------------
+  const chalkCanvas = document.getElementById('chalkCanvas');
+  const cctx = chalkCanvas.getContext('2d');
+  let cw = chalkCanvas.width = window.innerWidth;
+  let ch = chalkCanvas.height = window.innerHeight;
+
+  const particles = [];
+  const particleCount = 45;
+
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * cw,
+      y: Math.random() * ch,
+      r: Math.random() * 2.2 + 0.5,
+      vx: (Math.random() - 0.5) * 0.4 + 0.15,
+      vy: (Math.random() - 0.5) * 0.3 - 0.1,
+      alpha: Math.random() * 0.4 + 0.1
+    });
+  }
+
+  function renderChalk() {
+    cctx.clearRect(0, 0, cw, ch);
+    cctx.fillStyle = "#ECEAE4";
+    for (let p of particles) {
+      cctx.globalAlpha = p.alpha;
+      cctx.beginPath();
+      cctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      cctx.fill();
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0) p.x = cw;
+      if (p.x > cw) p.x = 0;
+      if (p.y < 0) p.y = ch;
+      if (p.y > ch) p.y = 0;
+    }
+    requestAnimationFrame(renderChalk);
+  }
+  renderChalk();
+
+  window.addEventListener('resize', () => {
+    cw = chalkCanvas.width = window.innerWidth;
+    ch = chalkCanvas.height = window.innerHeight;
+  });
+
+  // -------------------------------------------------------------
+  // 2. THE SIGNATURE MOVE: Barbell Deflection & Biomechanical Strain
+  // -------------------------------------------------------------
+  const barCanvas = document.getElementById('barbellCanvas');
+  const bctx = barCanvas.getContext('2d');
+
+  let currentWeight = 140; // kg
+  const plates = [25, 25, 10]; // kg per side (20kg bar + 2 * 60kg = 140kg)
+
+  function updateTelemetry(mass) {
+    currentWeight = mass;
+    const barWeight = 20;
+    const loadedPerSide = (mass - barWeight) / 2;
+
+    // Physics calculations
+    const deflection = (mass * 0.106).toFixed(1); // mm
+    const velocity = Math.max(0.24, (1.15 - (mass / 320))).toFixed(2); // m/s
+    const strain = Math.min(99, Math.floor((mass / 260) * 100)); // % CNS
+
+    document.getElementById('dispMass').textContent = mass + " KG";
+    document.getElementById('dispDeflection').textContent = deflection + " MM";
+    document.getElementById('dispVelocity').textContent = velocity + " M/S";
+    document.getElementById('dispStrain').textContent = strain + "% CNS";
+
+    drawBarbell(deflection);
+  }
+
+  let userInteractedPlates = false;
+
+  function rebuildPlates(totalMass) {
+    plates.length = 0;
+    let rem = Math.max(0, (totalMass - 20) / 2);
+    while (rem >= 25) { plates.push(25); rem -= 25; }
+    while (rem >= 20) { plates.push(20); rem -= 20; }
+    while (rem >= 10) { plates.push(10); rem -= 10; }
+    while (rem >= 5)  { plates.push(5); rem -= 5; }
+  }
+
+  function addPlate(kg) {
+    userInteractedPlates = true;
+    if (currentWeight >= 280) return;
+    plates.push(kg);
+    const total = 20 + plates.reduce((a, b) => a + b, 0) * 2;
+    updateTelemetry(total);
+  }
+
+  function resetBarbell() {
+    userInteractedPlates = false;
+    plates.length = 0;
+    updateTelemetry(20);
+  }
+
+  function drawBarbell(deflection) {
+    const w = barCanvas.width = barCanvas.parentElement.clientWidth;
+    const isMobileScreen = currentMode === 'mobile' || window.innerWidth <= 860;
+    const h = barCanvas.height = isMobileScreen ? 130 : 180;
+    bctx.clearRect(0, 0, w, h);
+
+    const centerY = h / 2;
+    const bendAmount = Math.min(26, parseFloat(deflection));
+
+    // Draw Bar with Quadratic Curve for Deflection
+    bctx.lineWidth = isMobileScreen ? 7 : 9;
+    bctx.strokeStyle = "#8A909D";
+    bctx.lineCap = "round";
+
+    bctx.beginPath();
+    bctx.moveTo(w * 0.05, centerY);
+    bctx.quadraticCurveTo(w * 0.5, centerY + bendAmount, w * 0.95, centerY);
+    bctx.stroke();
+
+    // Bar Center Knurling
+    bctx.lineWidth = isMobileScreen ? 9 : 11;
+    bctx.strokeStyle = "#ECEAE4";
+    bctx.beginPath();
+    bctx.moveTo(w * 0.38, centerY + (bendAmount * 0.85));
+    bctx.quadraticCurveTo(w * 0.5, centerY + bendAmount, w * 0.62, centerY + (bendAmount * 0.85));
+    bctx.stroke();
+
+    // Collars
+    const collarRatio = isMobileScreen ? 0.28 : 0.22;
+    const leftCollarX = w * collarRatio;
+    const rightCollarX = w * (1 - collarRatio);
+    const leftY = centerY + (bendAmount * 0.4);
+    const rightY = centerY + (bendAmount * 0.4);
+
+    bctx.fillStyle = "#CCFF00";
+    bctx.fillRect(leftCollarX - 4, leftY - 14, 8, 28);
+    bctx.fillRect(rightCollarX - 4, rightY - 14, 8, 28);
+
+    // Color mapper for plates
+    const colorMap = {
+      25: "#ff3344", // Red
+      20: "#0066ff", // Blue
+      10: "#00cc66", // Green
+      5:  "#ECEAE4"  // White
+    };
+    const scale = isMobileScreen ? 0.72 : 1.0;
+    const heightMap = {
+      25: 90 * scale,
+      20: 84 * scale,
+      10: 68 * scale,
+      5:  50 * scale
+    };
+    const plateW = isMobileScreen ? 7 : 10;
+    const plateStep = isMobileScreen ? 9 : 13;
+
+    // Draw Plates Stack on Left Sleeve
+    let curLX = leftCollarX - (isMobileScreen ? 8 : 12);
+    for (let p of plates) {
+      const ph = heightMap[p] || (70 * scale);
+      bctx.fillStyle = colorMap[p] || "#888";
+      bctx.fillRect(curLX - plateW, leftY - (ph / 2), plateW, ph);
+      bctx.strokeStyle = "rgba(0,0,0,0.5)";
+      bctx.lineWidth = 1;
+      bctx.strokeRect(curLX - plateW, leftY - (ph / 2), plateW, ph);
+      curLX -= plateStep;
+    }
+
+    // Draw Plates Stack on Right Sleeve
+    let curRX = rightCollarX + 4;
+    for (let p of plates) {
+      const ph = heightMap[p] || (70 * scale);
+      bctx.fillStyle = colorMap[p] || "#888";
+      bctx.fillRect(curRX, rightY - (ph / 2), plateW, ph);
+      bctx.strokeStyle = "rgba(0,0,0,0.5)";
+      bctx.lineWidth = 1;
+      bctx.strokeRect(curRX, rightY - (ph / 2), plateW, ph);
+      curRX += plateStep;
+    }
+  }
+
+  // -------------------------------------------------------------
+  // Dynamic Mode Engine: Full Mode (Desktop) vs Mobile Mode (Touch/Phone)
+  // -------------------------------------------------------------
+  let currentMode = 'full';
+
+  function evaluateMode() {
+    const isMobileWidth = window.innerWidth <= 860;
+    const isTouchCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches && window.innerWidth <= 1024;
+    const detectedMode = (isMobileWidth || isTouchCoarse) ? 'mobile' : 'full';
+
+    currentMode = detectedMode;
+    document.documentElement.setAttribute('data-sc-mode', currentMode);
+    if (currentMode === 'mobile') {
+      document.body.classList.add('sc-mode-mobile');
+      document.body.classList.remove('sc-mode-full');
+    } else {
+      document.body.classList.add('sc-mode-full');
+      document.body.classList.remove('sc-mode-mobile');
+    }
+
+    // Update Top Navigation Mode Indicator
+    const navModePill = document.getElementById('navModePill');
+    if (navModePill) {
+      navModePill.textContent = currentMode === 'mobile' 
+        ? `📱 MOBILE [${window.innerWidth}PX]` 
+        : `MODE: FULL [${window.innerWidth}PX]`;
+    }
+
+    updateStageHud();
+    drawBarbell(document.getElementById('dispDeflection').textContent);
+  }
+
+  window.addEventListener('resize', evaluateMode, { passive: true });
+  window.addEventListener('orientationchange', evaluateMode, { passive: true });
+  if (window.matchMedia) {
+    try {
+      window.matchMedia('(max-width: 860px)').addEventListener('change', evaluateMode);
+      window.matchMedia('(pointer: coarse)').addEventListener('change', evaluateMode);
+    } catch (e) {}
+  }
+
+  // Dynamic Barbell Scrubber & Stage HUD Updater
+  const strainAct = document.getElementById('strain-bay');
+
+  function onScrollUpdate() {
+    // 1. Scrub Barbell Physics in Act 4
+    if (strainAct && !userInteractedPlates) {
+      const p = parseFloat(strainAct.style.getPropertyValue('--sc-p')) || 0;
+      if (p > 0.01 && p < 0.99) {
+        // Modulate smoothly from 60kg up to 260kg
+        const scrollMass = Math.round(60 + p * 200);
+        rebuildPlates(scrollMass);
+        updateTelemetry(scrollMass);
+      }
+    }
+
+    // 2. Update Live Stage Telemetry Pill
+    updateStageHud();
+  }
+
+  function updateStageHud() {
+    const hudText = document.getElementById('hudText');
+    if (!hudText) return;
+    const stages = [
+      { id: 'hero-act', name: 'ACT 01 // THRESHOLD' },
+      { id: 'doctrine-act', name: 'ACT 02 // DOCTRINE' },
+      { id: 'hardware-act', name: 'ACT 03 // HARDWARE RAIL' },
+      { id: 'strain-bay', name: 'ACT 04 // MECHANICAL PEAK' },
+      { id: 'protocols', name: 'ACT 05 // PROGRAMMING' },
+      { id: 'induction', name: 'ACT 06 // INDUCTION' }
+    ];
+
+    let currentStage = 'ACT 01 // THRESHOLD';
+    let currentPct = 0;
+
+    for (let s of stages) {
+      const el = document.getElementById(s.id);
+      if (el) {
+        const p = parseFloat(el.style.getPropertyValue('--sc-p')) || 0;
+        if (p > 0.01 && p < 0.99) {
+          currentStage = s.name;
+          currentPct = Math.round(p * 100);
+          break;
+        } else if (p >= 0.99) {
+          currentStage = s.name;
+          currentPct = 100;
+        }
+      }
+    }
+    const modePrefix = currentMode === 'mobile' ? '📱 MOBILE · ' : 'MODE: FULL · ';
+    hudText.textContent = `${modePrefix}${currentStage} · ${currentPct}%`;
+  }
+
+  window.addEventListener('scroll', onScrollUpdate, { passive: true });
+
+  // Initial draw & mode detection
+  evaluateMode();
+  updateTelemetry(140);
+
+  // -------------------------------------------------------------
+  // 3. Induction Tier Selection & Requisition Form
+  // -------------------------------------------------------------
+  function selectTier(name, price) {
+    document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+    document.getElementById('selectedTierInput').value = `${name} — ${price}/mo`;
+  }
+
+  function handlePassSubmit(e) {
+    e.preventDefault();
+    document.getElementById('confirmationAlert').style.display = 'block';
+    document.getElementById('requisitionForm').style.opacity = '0.4';
+    document.getElementById('requisitionForm').querySelectorAll('input, button').forEach(el => el.disabled = true);
+  }
+</script>
+</body>
+</html>
